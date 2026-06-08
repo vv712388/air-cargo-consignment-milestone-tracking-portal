@@ -1,15 +1,19 @@
-
 const express = require("express");
 
 const app = express();
+
+app.use(express.json());
 
 app.get("/", (req, res) => {
     res.send("Air Cargo Backend Running");
 });
 
-app.listen(3000, () => {
-    console.log("Server Started");
+app.post("/shipments", (req, res) => {
+    res.json({
+        message: "Shipment Created Successfully"
+    });
 });
 
-console.log("Backend Started");
-
+app.listen(3000, () => {
+    console.log("Server Started");
+}); 
