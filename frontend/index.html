@@ -2,6 +2,32 @@
 <html>
 <head>
     <title>Air Cargo Tracking Portal</title>
+    <style>
+body{
+    font-family: Arial, sans-serif;
+    margin: 30px;
+}
+
+input, select{
+    width: 300px;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+button{
+    padding: 10px 20px;
+}
+
+table{
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td{
+    border: 1px solid black;
+    padding: 10px;
+}
+</style>
 </head>
 <body>
 
@@ -37,6 +63,33 @@
 
     <button type="submit">Submit</button>
 </form>
+<h2>Shipment Records</h2>
+
+<table border="1">
+    <tr>
+        <th>Shipment ID</th>
+        <th>Customer Name</th>
+        <th>Origin</th>
+        <th>Destination</th>
+        <th>Status</th>
+    </tr>
+
+    <tr>
+        <td>SH001</td>
+        <td>ABC Logistics</td>
+        <td>Hyderabad</td>
+        <td>Dubai</td>
+        <td>Booking Confirmed</td>
+    </tr>
+
+    <tr>
+        <td>SH002</td>
+        <td>XYZ Cargo</td>
+        <td>Mumbai</td>
+        <td>Singapore</td>
+        <td>In Transit</td>
+    </tr>
+</table>
 
 </body>
 </html>
