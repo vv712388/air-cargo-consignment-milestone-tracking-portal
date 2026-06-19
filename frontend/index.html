@@ -52,22 +52,24 @@ h2{
 
 <h1>Air Cargo Consignment Milestone Tracking Portal</h1>
 
-<form>
-    <input type="text" placeholder="Shipment ID"><br><br>
+<form id="shipmentForm">
+    <input type="text" placeholder="Shipment ID" required><br><br>
 
-    <input type="text" placeholder="Customer Name"><br><br>
+    <input type="text" placeholder="Customer Name" required><br><br>
 
-    <input type="text" placeholder="Origin Airport"><br><br>
+    <input type="text" placeholder="Origin Airport" required><br><br>
 
-    <input type="text" placeholder="Destination Airport"><br><br>
+    <input type="text" placeholder="Destination Airport" required><br><br>
 
-    <input type="text" placeholder="Cargo Type"><br><br>
+    <input type="text" placeholder="Cargo Type" required><br><br>
 
-    <input type="number" placeholder="Package Count"><br><br>
+    <input type="number" placeholder="Package Count" required><br><br>
 
-    <input type="number" placeholder="Weight"><br><br>
+    <input type="number" placeholder="Weight" required><br><br>
+    
 
-    <select>
+    <select required>
+         <option value="">Select Status</option>
         <option>Booking Confirmed</option>
         <option>Documentation Complete</option>
         <option>Cargo Accepted</option>
@@ -77,6 +79,8 @@ h2{
         <option>Customs Cleared</option>
         <option>Delivered</option>
     </select>
+
+    
 
     <br><br>
 
@@ -131,6 +135,21 @@ h2{
         <td>In Transit</td>
     </tr>
 </table>
+<script>
+document.getElementById("shipmentForm").addEventListener("submit", function(event) {
+    event.preventDefault();
 
+    let fields = document.querySelectorAll("#shipmentForm input, #shipmentForm select");
+
+    for (let field of fields) {
+        if (field.value.trim() === "") {
+            alert("Please fill all fields");
+            return;
+        }
+    }
+
+    alert("Shipment Submitted Successfully");
+});
+</script>
 </body>
 </html>

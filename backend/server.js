@@ -30,8 +30,22 @@ app.get("/shipments", (req, res) => {
 });
 
 app.post("/shipments", (req, res) => {
+
+    const { id, customer, origin, destination, status } = req.body;
+
+    if (!id || !customer || !origin || !destination || !status) {
+        return res.status(400).json({
+            message: "All fields are required"
+        });
+    }
+
+    const newShipment = req.body;
+
+    shipments.push(newShipment);
+
     res.json({
-        message: "Shipment Created Successfully"
+        message: "Shipment Created Successfully",
+        data: newShipment
     });
 });
 
