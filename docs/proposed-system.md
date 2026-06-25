@@ -2,35 +2,35 @@
 
 ## Air Cargo Consignment Milestone Tracking Portal
 
-The proposed system is a web-based portal developed for ORBEM Solutions Private Limited to manage and track air cargo shipments.
+The proposed system is a web-based application that allows customers and operations staff to manage and track air cargo shipments through various milestones.
 
-### Features
+### Main Features
 
-- Shipment Creation
-- Cargo Tracking
-- Milestone Updates
-- Dashboard Monitoring
-- Status Reporting
+* Shipment Creation
+* Shipment Tracking
+* Milestone Status Updates
+* Dashboard Monitoring
+* Report Generation
 
 ### Users
 
-1. Customer
-2. Operations Staff
-3. Admin
-
-### Workflow
-
-1. Customer creates shipment.
-2. Shipment details are stored in the system.
-3. Operations staff updates shipment milestones.
-4. Customers track shipment status.
-5. Admin monitors dashboard and reports.
-6. Final delivery status is displayed.
+* Customer
+* Operations Staff
+* Admin
 
 ### Benefits
 
-- Real-time shipment tracking
-- Improved transparency
-- Faster operations
-- Better record management
-- Reduced manual work 
+* Real-time cargo tracking
+* Improved transparency
+* Faster shipment management
+* Better operational efficiency
+* Centralized data management
+
+### Workflow
+
+1. Customer creates a shipment.
+2. Shipment details are stored in the system.
+3. Operations staff updates shipment milestones.
+4. Customer tracks shipment progress.
+5. Admin monitors dashboard and reports.
+6. Final delivery status is displayed.

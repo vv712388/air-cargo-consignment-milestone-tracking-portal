@@ -27,3 +27,4 @@
 ## Summary
 
 The reviewed systems provide tracking capabilities and shipment visibility. However, they primarily focus on general logistics operations. The proposed Air Cargo Consignment Milestone Tracking Portal will provide dedicated air cargo milestone tracking, operational dashboards, customs tracking, documentation management, and delivery visibility.
+

@@ -3,114 +3,408 @@
 <head>
     <title>Air Cargo Tracking Portal</title>
     <style>
+
 body{
     font-family: Arial, sans-serif;
-    margin: 30px;
+    background:#f4f6f9;
+    margin:30px;
+}
+.form-container{
+    max-width:900px;
+    width:100%;
+    margin:20px auto;
+}
+
+h1{
+    text-align:center;
+    color:#003366;
+    margin-bottom:30px;
+}
+
+h2{
+    color:#003366;
+    margin-top:25px;
+}
+h2{
+    margin-top:15px;
+    margin-bottom:10px;
 }
 
 input, select{
-    width: 300px;
-    padding: 8px;
-    margin-bottom: 10px;
+    width:300px;
+    padding:10px;
+    margin-bottom:10px;
+    border:1px solid #ccc;
+    border-radius:5px;
 }
 
 button{
-    padding: 10px 20px;
+    padding:10px 20px;
+    background:#007bff;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    margin:5px;
+    transition:all 0.3s ease;
 }
 
-table{
-    border-collapse: collapse;
-    margin-top: 20px;
-    width: 100%;
-}
-th{
-    background-color: darkblue;
-    color: white;
-}
-
-
-th, td{
-    border: 1px solid black;
-    padding: 10px;
-}
-h2{
-    color: darkblue;
+button:hover{
+    background:#0056b3;
+    transform:scale(1.05);
 }
 
 .summary-card{
-    border: 1px solid #ccc;
-    padding: 15px;
-    width: 250px;
-    margin-bottom: 10px;
-    background-color: #f5f5f5;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    display:inline-block;
+    width:220px;
+    margin:10px;
+    padding:15px;
+    background:white;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.2);
+    text-align:center;
 }
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+    background:white;
+}
+
+th{
+    background:#003366;
+    color:white;
+}
+
+th, td{
+    padding:12px;
+    border:1px solid #ddd;
+    text-align:center;
+}
+
+tr:nth-child(even){
+    background:#f2f2f2;
+}
+
+#shipmentDetail,
+#shipmentHistory{
+    margin-top:10px;
+}
+
+.detail-box{
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.2);
+}
+
+form{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.2);
+}
+.dashboard-container{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:15px;
+    margin-top:20px;
+}
+
+.summary-card{
+    width:200px;
+    transition:0.3s;
+}
+
+.summary-card:hover{
+    transform:translateY(-10px) scale(1.05);
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+tr:hover{
+    background:#dbeafe;
+}
+.status-delivered{
+    background:#28a745;
+    color:white;
+    padding:6px 12px;
+    border-radius:20px;
+    font-weight:bold;
+}
+
+.status-transit{
+    background:#ffc107;
+    color:black;
+    padding:6px 12px;
+    border-radius:20px;
+    font-weight:bold;
+}
+
+.status-booking{
+    background:#007bff;
+    color:white;
+    padding:6px 12px;
+    border-radius:20px;
+    font-weight:bold;
+}
+
+.status-departed{
+    background:#fd7e14;
+    color:white;
+    padding:6px 12px;
+    border-radius:20px;
+    font-weight:bold;
+}
+
+.status-arrived{
+    background:#20c997;
+    color:white;
+    padding:6px 12px;
+    border-radius:20px;
+    font-weight:bold;
+}
+
+.status-customs{
+    background:#6f42c1;
+    color:white;
+    padding:6px 12px;
+    border-radius:20px;
+    font-weight:bold;
+}
+.badge{
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.delivered{
+    background:#28a745;
+    color:white;
+}
+
+.transit{
+    background:#ffc107;
+    color:black;
+}
+
+.booking{
+    background:#007bff;
+    color:white;
+}
+
+.other{
+    background:#6c757d;
+    color:white;
+}
+#shipmentTimeline{
+    background:white;
+    padding:15px;
+    margin-top:10px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.2);
+}
+
+.timeline-step{
+    padding:8px;
+    margin:5px 0;
+    border-left:4px solid green;
+    background:#f8f9fa;
+}
+#shipmentTimeline:empty{
+    display:none;
+}
+@media(max-width:768px){
+
+.form-container{
+    width:95%;
+}
+
+input,
+select{
+    width:100%;
+}
+
+button{
+    width:100%;
+}
+
+.summary-card{
+    width:100%;
+}
+
+table{
+    font-size:14px;
+}
+}
+
 </style>
 </head>
 <body>
 
-<h1>Air Cargo Consignment Milestone Tracking Portal</h1>
+<h1>
+✈️ Air Cargo Consignment Milestone Tracking Portal
+</h1>
 
+<p style="
+text-align:center;
+color:#666;
+font-size:18px;
+margin-top:-10px;">
+Real-Time Global Cargo Monitoring System
+</p>
+<div class="form-container">
 <form id="shipmentForm">
-    <input type="text" placeholder="Shipment ID" required><br><br>
+    <input type="text" id="shipmentId" placeholder="Shipment ID" required><br><br>
 
-    <input type="text" placeholder="Customer Name" required><br><br>
+    <input type="text" id="customer" placeholder="Customer Name" required><br><br>
 
-    <input type="text" placeholder="Origin Airport" required><br><br>
+    <input type="text" id="origin" placeholder="Origin Airport" required><br><br>
 
-    <input type="text" placeholder="Destination Airport" required><br><br>
+    <input type="text" id="destination" placeholder="Destination Airport" required><br><br>
 
-    <input type="text" placeholder="Cargo Type" required><br><br>
+    <input type="text" id="cargoType" placeholder="Cargo Type" required><br><br>
 
-    <input type="number" placeholder="Package Count" required><br><br>
+    <input type="number" id="packageCount" placeholder="Package Count" required><br><br>
 
-    <input type="number" placeholder="Weight" required><br><br>
-    
+    <input type="number" id="weight" placeholder="Weight" required><br><br>
 
-    <select required>
-         <option value="">Select Status</option>
-        <option>Booking Confirmed</option>
-        <option>Documentation Complete</option>
-        <option>Cargo Accepted</option>
-        <option>Departed</option>
-        <option>Transited</option>
-        <option>Arrived</option>
-        <option>Customs Cleared</option>
-        <option>Delivered</option>
-    </select>
+<select id="status" required>
 
-    
+<option value="">Select Status</option>
+<option>Booking Confirmed</option>
+<option>Documentation Complete</option>
+<option>Cargo Accepted</option>
+<option>Customs Cleared</option>
+<option>Departed</option>
+<option>In Transit</option>
+<option>Arrived</option>
+<option>Out for Delivery</option>
+<option>Delivered</option>
+</select>
 
     <br><br>
 
     <button type="submit">Submit</button>
+
 </form>
+</div>
+
+    
 <h2>Dashboard Summary</h2>
+<h2>Shipment Detail</h2> 
 
-<div class="summary-card">
-    <h3>Total Shipments: 25</h3>
+<p id="loadingMessage"></p>
+
+<input
+    type="text"
+    id="detailShipmentId"
+    placeholder="Enter Shipment ID">
+
+<button id="detailBtn" onclick="loadShipmentDetail()">
+    View Shipment Details
+</button>
+
+
+<div id="shipmentDetail"></div>
+<input
+    type="text"
+    id="historyShipmentId"
+    placeholder="Enter Shipment ID for History">
+<button id="historyBtn" onclick="loadHistory()">
+    View Shipment History
+</button>
+<input
+    type="text"
+    id="timelineShipmentId"
+    placeholder="Enter Shipment ID">
+<button id="timelineBtn" onclick="showTimeline()">
+    View Shipment Timeline
+</button>
+
+<div id="shipmentHistory"></div>
+<div id="shipmentTimeline"></div>
+<h3>Update Shipment Status</h3>
+
+<input type="text" id="updateShipmentId" placeholder="Shipment ID">
+
+<select id="newStatus">
+    <option value="">Update Status</option>
+    <option>Booking Confirmed</option>
+<option>Documentation Complete</option>
+<option>Cargo Accepted</option>
+<option>Customs Cleared</option>
+<option>Departed</option>
+<option>In Transit</option>
+<option>Arrived</option>
+<option>Out for Delivery</option>
+<option>Delivered</option>
+</select>
+
+<button onclick="updateShipmentStatus()">
+    Update Status
+</button>
+<div class="dashboard-container"></div>
+
+<div class="summary-card" style="background:#007bff;color:white;">
+    <h3 id="totalShipments">Total Shipments: 0</h3>
+</div>
+
+<div class="summary-card" style="background:#28a745;color:white;">
+    <h3 id="delivered">Delivered: 0</h3>
 </div>
 
 <div class="summary-card">
-    <h3>Delivered: 15</h3>
+    <h3 id="inTransit">In Transit: 0</h3>
 </div>
 
-<div class="summary-card">
-    <h3>In Transit: 7</h3>
+<div class="summary-card" style="background:#ffc107;color:black;">
+    <h3 id="bookingConfirmed">Booking Confirmed: 0</h3>
 </div>
 
-<div class="summary-card">
-    <h3>Pending: 3</h3>
+<div class="summary-card" style="background:#6f42c1;color:white;">
+    <h3 id="departed">Departed: 0</h3>
 </div>
 
+<div class="summary-card" style="background:#fd7e14;color:white;">
+    <h3 id="arrived">Arrived: 0</h3>
+</div>
+
+<div class="summary-card" style="background:#dc3545;color:white;">
+    <h3 id="customsCleared">Customs Cleared: 0</h3>
+</div>
+</div>
 <br>
 
 
 
 <h2>Shipment Records</h2>
+<p id="emptyMessage"></p>
+<h3 id="shipmentCount">
+    Total Shipments: 0
+</h3>
+<input
+    type="text"
+    id="searchShipment"
+    placeholder="Search Shipment ID">
 
-<table border="1">
+<button onclick="searchShipment()">
+    Search
+</button>
+
+<table border="1" id="shipmentTable">
     <tr>
         <th>Shipment ID</th>
         <th>Customer Name</th>
@@ -118,38 +412,415 @@ h2{
         <th>Destination</th>
         <th>Status</th>
     </tr>
+<tbody id="shipmentTableBody">
 
-    <tr>
-        <td>SH001</td>
-        <td>ABC Logistics</td>
-        <td>Hyderabad</td>
-        <td>Dubai</td>
-        <td>Booking Confirmed</td>
-    </tr>
-
-    <tr>
-        <td>SH002</td>
-        <td>XYZ Cargo</td>
-        <td>Mumbai</td>
-        <td>Singapore</td>
-        <td>In Transit</td>
-    </tr>
+</tbody>
+    
 </table>
 <script>
-document.getElementById("shipmentForm").addEventListener("submit", function(event) {
+
+document.getElementById("shipmentForm").addEventListener("submit", async function(event) {
+
     event.preventDefault();
 
-    let fields = document.querySelectorAll("#shipmentForm input, #shipmentForm select");
+    const shipment = {
+    id: document.getElementById("shipmentId").value,
+    customer: document.getElementById("customer").value,
+    origin: document.getElementById("origin").value,
+    destination: document.getElementById("destination").value,
+    cargoType: document.getElementById("cargoType").value,
+    packageCount: document.getElementById("packageCount").value,
+    weight: document.getElementById("weight").value,
+    status: document.getElementById("status").value
+};
+if (
+    shipment.id.trim() === "" ||
+    shipment.customer.trim() === "" ||
+    shipment.origin.trim() === "" ||
+    shipment.destination.trim() === ""
+) {
+    alert("Please fill all required fields");
+    return;
+}
 
-    for (let field of fields) {
-        if (field.value.trim() === "") {
-            alert("Please fill all fields");
-            return;
-        }
+    try {
+
+        const response = await fetch("http://localhost:3000/shipments", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify(shipment)
+
+        });
+
+        const data = await response.json();
+
+if (!response.ok) {
+    alert("❌ " + data.message);
+    return;
+}
+
+alert("✅ Shipment Created Successfully!");
+
+document.getElementById("shipmentForm").reset();
+
+loadShipments();
+loadDashboard();
+
+    } catch (error) {
+
+        alert("❌ Backend Connection Failed");
+
+        console.log(error);
+
     }
 
-    alert("Shipment Submitted Successfully");
 });
+
+
+async function loadDashboard() {
+
+    const response = await fetch("http://localhost:3000/dashboard");
+
+    const data = await response.json();
+
+    document.getElementById("totalShipments").innerText =
+        "Total Shipments: " + data.totalShipments;
+
+    document.getElementById("delivered").innerText =
+        "Delivered: " + data.delivered;
+
+    document.getElementById("inTransit").innerText =
+        "In Transit: " + data.inTransit;
+
+    document.getElementById("bookingConfirmed").innerText =
+        "Booking Confirmed: " + data.bookingConfirmed;
+        document.getElementById("departed").innerText =
+    "Departed: " + data.departed;
+
+document.getElementById("arrived").innerText =
+    "Arrived: " + data.arrived;
+
+document.getElementById("customsCleared").innerText =
+    "Customs Cleared: " + data.customsCleared;
+}
+
+
+async function loadShipmentDetail() {
+
+    const detailDiv = document.getElementById("shipmentDetail");
+    const btn = document.getElementById("detailBtn");
+document.getElementById("loadingMessage").innerText =
+"Loading Shipment...";
+
+    if (detailDiv.innerHTML !== "") {
+    detailDiv.innerHTML = "";
+    btn.innerText = "View Shipment Details";
+    return;
+}
+
+    const shipmentId =
+document.getElementById("detailShipmentId").value;
+if(shipmentId === ""){
+    alert("Please enter Shipment ID");
+    return;
+}
+await new Promise(resolve =>
+    setTimeout(resolve, 1000)
+);
+
+const response = await fetch(
+    `http://localhost:3000/shipments/${shipmentId}`
+);
+
+if (!response.ok) {
+    document.getElementById("loadingMessage").innerText = "";
+    detailDiv.innerHTML = "❌ Shipment Not Found";
+    return;
+}
+
+    const shipment = await response.json();
+    document.getElementById("loadingMessage").innerText = "";
+
+    detailDiv.innerHTML = `
+<div class="detail-box">
+    <p><b>ID:</b> ${shipment.id}</p>
+    <p><b>Customer:</b> ${shipment.customer}</p>
+    <p><b>Origin:</b> ${shipment.origin}</p>
+    <p><b>Destination:</b> ${shipment.destination}</p>
+    <p><b>Status:</b> ${shipment.status}</p>
+</div>
+`;
+
+    btn.innerText = "Close Details";
+}
+
+
+
+
+
+async function loadShipments() {
+
+    const response = await fetch("http://localhost:3000/shipments");
+
+    const shipments = await response.json();
+    document.getElementById("shipmentCount").innerText =
+    "Total Shipments: " + shipments.length;
+
+    const tableBody = document.getElementById("shipmentTableBody");
+
+    tableBody.innerHTML = "";
+
+    shipments.forEach(shipment => {
+
+    let statusBadge;
+switch(shipment.status){
+
+            case "Delivered":
+                statusBadge =
+                `<span class="badge delivered">
+                    Delivered
+                </span>`;
+                break;
+
+            case "In Transit":
+                statusBadge =
+                `<span class="badge transit">
+                    In Transit
+                </span>`;
+                break;
+
+            case "Booking Confirmed":
+                statusBadge =
+                `<span class="badge booking">
+                    Booking Confirmed
+                </span>`;
+                break;
+
+            default:
+                statusBadge =
+                `<span class="badge other">
+                    ${shipment.status}
+                </span>`;
+        }
+
+        tableBody.innerHTML += `
+            <tr>
+                <td>${shipment.id}</td>
+                <td>${shipment.customer}</td>
+                <td>${shipment.origin}</td>
+                <td>${shipment.destination}</td>
+                <td>${statusBadge}</td>
+            </tr>
+        `;
+    });
+checkEmptyTable();
+}
+    
+    
+    
+
+
+loadDashboard();
+loadShipments();
+async function updateShipmentStatus() {
+
+    const shipmentId =
+        document.getElementById("updateShipmentId").value;
+
+    const status =
+        document.getElementById("newStatus").value;
+
+    const response = await fetch(
+        `http://localhost:3000/shipments/${shipmentId}`,
+        {
+            method: "PUT",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                status: status
+            })
+        }
+    );
+
+    const data = await response.json();
+alert(data.message);
+    loadShipments();
+    loadDashboard();
+}
+async function loadHistory() {
+
+    const historyDiv =
+        document.getElementById("shipmentHistory");
+
+    const btn =
+        document.getElementById("historyBtn");
+
+    if (historyDiv.innerHTML !== "") {
+        historyDiv.innerHTML = "";
+        btn.innerText = "View Shipment History";
+        return;
+    }
+
+    const shipmentId =
+    document.getElementById("historyShipmentId").value;
+
+    if (shipmentId.trim() === "") {
+        alert("Please enter a Shipment ID");
+        return;
+    }
+
+    const response =
+        await fetch(
+            `http://localhost:3000/history/${shipmentId}`
+        );
+ if (!response.ok) {
+     alert("❌ Shipment ID not found");
+    return;
+}
+
+const data = await response.json();
+    historyDiv.innerHTML = `
+        <h4>History for ${shipmentId}</h4>
+        ${data.history.map(
+            item => `✅ ${item}`
+        ).join("<br>")}
+    `;
+
+    btn.innerText = "Close History";
+}
+function searchShipment() {
+
+    const searchValue =
+        document.getElementById("searchShipment")
+        .value
+        .toUpperCase();
+
+    const rows =
+        document.querySelectorAll(
+            "#shipmentTableBody tr"
+        );
+
+    rows.forEach(row => {
+
+        const shipmentId =
+            row.cells[0].innerText.toUpperCase();
+
+        if (shipmentId.includes(searchValue)) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+
+    });
+}
+async function showTimeline() {
+
+    const timelineDiv =
+        document.getElementById("shipmentTimeline");
+
+    const btn =
+        document.getElementById("timelineBtn");
+
+    if (timelineDiv.innerHTML !== "") {
+        timelineDiv.innerHTML = "";
+        btn.innerText = "View Shipment Timeline";
+        return;
+    }
+
+    const shipmentId =
+        document.getElementById("timelineShipmentId").value;
+
+    if (shipmentId.trim() === "") {
+        alert("Please enter a Shipment ID");
+        return;
+    }
+
+    const response =
+        await fetch(
+            `http://localhost:3000/shipments/${shipmentId}`
+        );
+
+    if (!response.ok) {
+        alert("Shipment ID not found");
+        return;
+    }
+
+    const shipment = await response.json();
+
+    const steps = [
+        "Booking Confirmed",
+        "Documentation Complete",
+        "Cargo Accepted",
+        "Customs Cleared",
+        "Departed",
+        "In Transit",
+        "Arrived",
+        "Delivered"
+    ];
+
+    let html = `<h4>Timeline for ${shipment.id}</h4>`;
+
+    let reached = true;
+
+    steps.forEach(step => {
+
+        if (reached) {
+            html += `
+                <div class="timeline-step">
+                    ✅ ${step}
+                </div>
+            `;
+        } else {
+            html += `
+                <div class="timeline-step">
+                    ⬜ ${step}
+                </div>
+            `;
+        }
+
+        if (step === shipment.status) {
+            reached = false;
+        }
+
+    });
+
+    timelineDiv.innerHTML = html;
+
+    btn.innerText = "Close Timeline";
+}function checkEmptyTable() {
+
+    const rows =
+        document.querySelectorAll(
+            "#shipmentTable tr"
+        );
+
+    if (rows.length <= 1) {
+        document.getElementById(
+            "emptyMessage"
+        ).innerText =
+        "No Shipments Available";
+    }
+    else {
+        document.getElementById(
+            "emptyMessage"
+        ).innerText = "";
+    }
+}
+checkEmptyTable();
+
 </script>
+<hr>
+
+<p style="text-align:center;color:gray;">
+    Air Cargo Tracking Portal © 2026
+</p>
 </body>
 </html>
