@@ -1,5 +1,7 @@
+console.log("SERVER FILE LOADED");
 const express = require("express");
 const cors = require("cors");
+const db = require("./db");
 const app = express();
 app.use(cors());
 
@@ -23,6 +25,15 @@ const shipments = [
     history: ["Booking Confirmed", "In Transit"]
 }
 ];
+const validFlow = {
+    "Booking Confirmed": "Documentation Complete",
+    "Documentation Complete": "Cargo Accepted",
+    "Cargo Accepted": "Departed",
+    "Departed": "In Transit",
+    "In Transit": "Arrived",
+    "Arrived": "Customs Cleared",
+    "Customs Cleared": "Delivered"
+};
 
 app.get("/", (req, res) => {
     res.send("Air Cargo Backend Running");
@@ -67,16 +78,20 @@ app.get("/dashboard", (req, res) => {
         const customsCleared = shipments.filter(
             s => s.status === "Customs Cleared"
         ).length;
+        const delayed = shipments.filter(
+    s => s.delay === true
+).length;
 
-        res.json({
-            totalShipments: total,
-            delivered,
-            inTransit,
-            bookingConfirmed,
-            departed,
-            arrived,
-            customsCleared
-        });
+       res.json({
+    totalShipments: total,
+    delivered,
+    inTransit,
+    bookingConfirmed,
+    departed,
+    arrived,
+    customsCleared,
+    delayed
+});
 
     }
     catch (error) {
@@ -149,16 +164,27 @@ app.put("/shipments/:id", (req, res) => {
         }
 
         const newStatus = req.body.status;
+        const allowedStatus = validFlow[shipment.status];
+
+if (allowedStatus !== newStatus) {
+    return res.status(400).json({
+        message: "Invalid Status Transition"
+    });
+}
 
         shipment.status = newStatus;
+        if (newStatus === "In Transit") {
+    shipment.delay = true;
+}
 
         if (!shipment.history) {
             shipment.history = [];
         }
 
-        if (!shipment.history.includes(newStatus)) {
-            shipment.history.push(newStatus);
-        }
+        shipment.history.push({
+    status: newStatus,
+    time: new Date()
+});
 
         res.json({
             message: "Status Updated Successfully",
@@ -176,7 +202,16 @@ app.put("/shipments/:id", (req, res) => {
 app.post("/shipments", (req, res) => {
     try {
 
-        const { id, customer, origin, destination, status } = req.body;
+        const {
+    id,
+    customer,
+    origin,
+    destination,
+    cargoType,
+    packageCount,
+    weight,
+    status
+} = req.body;
 
         const existingShipment = shipments.find(
             s => s.id.toUpperCase() === id.toUpperCase()
@@ -195,10 +230,28 @@ app.post("/shipments", (req, res) => {
         }
 
         const newShipment = {
-            ...req.body,
-            id: id.toUpperCase(),
-            history: [status]
-        };
+    id: id.toUpperCase(),
+    customer,
+    origin,
+    destination,
+    cargoType,
+    packageCount,
+    weight,
+    status,
+
+    owner: "Operations Staff",
+
+    createdAt: new Date(),
+
+    delay: false,
+
+    history: [
+        {
+            status: status,
+            time: new Date()
+        }
+    ]
+};
 
         shipments.push(newShipment);
 
